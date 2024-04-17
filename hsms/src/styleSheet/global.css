@@ -1,0 +1,58 @@
+body *{
+    padding:0;
+    margin:0;    
+}
+body{
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.signCont{
+    padding: 0px 0px 0px 0px;
+}
+
+.subNavbar{
+    overflow:hidden;
+}
+
+.col-auto{
+    padding-right:1vw;
+}
+
+.otherOptionCont{
+    display:flex;
+    justify-content:end;
+    background-color:#F8F9FA;
+}
+
+.loggedName{
+    text-decoration:underline;
+    color:limegreen;
+    display:inline;
+    cursor:pointer;
+}
+.SignLogo{
+    padding-left:2vw;
+}
+
+.SignUpButtonDiv{
+    display:flex;
+    justify-content:center;
+    margin-top:5vh;
+}
+
+.homeImage{
+    filter: sepia(100%);
+    box-shadow:0px 0px 10px 10px grey;
+    overflow:hidden;
+    transform:scale(0.9);
+}
+
+.homeImage:hover{
+    cursor:pointer;
+    filter:none;
+    transform:scale(1.05);
+    transition:0.3s;
+    box-shadow:0px 0px 12px 12px limegreen;
+    
+}
+
