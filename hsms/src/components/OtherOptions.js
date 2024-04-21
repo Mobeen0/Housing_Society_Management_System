@@ -68,7 +68,7 @@ function OtherOptions(props) {
         <>
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    <MdSwitchAccount />Register?
+                    <MdSwitchAccount />{' '}Register
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

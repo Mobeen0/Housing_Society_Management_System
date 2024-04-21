@@ -3,8 +3,7 @@ const app = express();
 
 app.get('/',(req,res)=>{
     console.log('Here');
-    res.json({name:"john doe",
-    password:'123'});
+    res.send('Whaddup')
 });
 
 app.listen(5000);
