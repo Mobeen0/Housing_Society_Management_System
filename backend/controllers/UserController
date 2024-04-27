@@ -1,0 +1,23 @@
+const {getUser} = require('./dbController');
+
+async function verifyLogin(req,res){
+    try{
+    let {userName,userPass} = req.query;
+    const user = await(getUser(userName,userPass))
+    if (user) {
+        res.status(200).json({ success: true, user });
+    } else {
+        res.status(204).json({ success: false, message: 'User not found' });
+    }
+    }catch(error){
+        console.error('Error verifying login:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+    return getUser(req,res)
+}
+
+
+module.exports = {
+    verifyLogin
+}
+

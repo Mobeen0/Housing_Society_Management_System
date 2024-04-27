@@ -1,0 +1,14 @@
+const UserModel = require('../models/User');
+
+
+async function getUser(userName, userPass){
+    try {
+        return await UserModel.findOne({ UName: userName, password: userPass });
+    } catch (error) {
+        console.error('Error retrieving user from database:', error);
+    }
+}
+
+module.exports = {
+    getUser
+}
