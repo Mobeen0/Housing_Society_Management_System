@@ -10,6 +10,7 @@ import { TbPasswordUser } from "react-icons/tb";
 import { FaSignInAlt } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import axios from 'axios';
 
 
 function OtherOptions(props) {
@@ -50,6 +51,29 @@ function OtherOptions(props) {
             counter+=1
         }
         setProgNum(Math.floor(counter * 100/6));
+    }
+
+    const handleSubmit = ()=>{
+        if(nPass.current.value !== cPass.current.value){
+            window.alert('Passwords do not match. Please try again');
+            return;
+        }
+        const addUser = async()=>{
+            try{
+                const retVal = await axios.post(`http://localhost:5000/SignUp?FName1=${fName.current.value}&LName1=${lName.current.value}&UName1=${uName.current.value}&email1=${uEmail.current.value}&password1=${nPass.current.value}`);
+                  const {status,data} =  retVal
+                  if(status ===200){
+                        window.alert('User Added Successfully');
+                        handleClose();
+                  }else{
+                        window.alert('Please Choose Unique UserName and Email.');
+                  }
+            }catch(error){
+                return null;
+            }
+        }
+        addUser();
+    
     }
 
     useEffect(()=>{
@@ -112,7 +136,7 @@ function OtherOptions(props) {
                         <input type="password" className="form-control" id="confirmPassword" ref = {cPass} onChange = {onFieldChange} />
                     </div>
                     <div className = "SignUpButtonDiv">
-                        <Button variant= "outline-success" type = "submit" size = "lg" ><FaSignInAlt />{'  '}Sign Up</Button>
+                        <Button variant= "outline-success" type = "submit" size = "lg" onClick ={handleSubmit} ><FaSignInAlt />{'  '}Sign Up</Button>
                     </div>
                     <div style = {{marginTop:'3vh'}}>
                         <ProgressBar striped variant={progColor} now={progNum} />

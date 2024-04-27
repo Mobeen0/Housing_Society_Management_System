@@ -1,5 +1,6 @@
 router = require('express').Router();
+const {signUpUser} = require('../controllers/UserController');
 
-router.post('/',()=>{});
+router.post('/',signUpUser);
 
 module.exports = router;

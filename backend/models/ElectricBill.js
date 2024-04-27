@@ -5,7 +5,7 @@ const electricBillSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     propId: { type: String, required: true },
     month: { type: String, required: true }
-});
+},{ versionKey: false });
 
 const ElectricBill = mongoose.model('ElectricBill', electricBillSchema,'ElectricBill');
 

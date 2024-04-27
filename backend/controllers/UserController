@@ -1,4 +1,4 @@
-const {getUser} = require('./dbController');
+const {getUser,checkUserName,addUser} = require('./dbController');
 
 async function verifyLogin(req,res){
     try{
@@ -17,7 +17,28 @@ async function verifyLogin(req,res){
 }
 
 
+
+async function signUpUser(req,res){
+    try{
+        const {FName1,LName1,UName1,email1,password1} = req.query;
+        const user = await(checkUserName(UName1))
+        if(user){
+            res.status(204).json({ success: false, message: 'User already exists' });
+        }
+        else{
+            await (addUser(FName1,LName1,UName1,email1,password1));
+            res.status(200).json({ success: true, message: 'User added successfully' });
+        }
+
+    }catch(error){
+        console.error('Error verifying login:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
+
 module.exports = {
-    verifyLogin
+    verifyLogin,
+    signUpUser
 }
 

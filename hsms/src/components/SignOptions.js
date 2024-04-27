@@ -13,11 +13,9 @@ import { CiLogin } from "react-icons/ci";
 import {Link,useNavigate} from 'react-router-dom';
 import { FaHouseUser } from "react-icons/fa";
 import axios from 'axios';
-import { TbNumber0Small } from 'react-icons/tb';
 
 function SignOptions(props) {
   const [validUser,setValidUser] =  useState(false);
-  const [pathDirect, setPathDirect] = useState('/');
   let userVal = useRef();
   let passVal = useRef();
   let submitVal = useRef();
@@ -53,7 +51,6 @@ function SignOptions(props) {
   
   useEffect(() => {
     if (validUser) {
-      setPathDirect('/LoggedIn/Home');
       history('/LoggedIn/Home');
     }
   }, [validUser]);
