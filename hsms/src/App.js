@@ -7,17 +7,20 @@ import LoggedIn from './components/LoggedIn';
 import Navigation from './components/Navigation'
 import Foot from './components/Foot'
 import HomePage from './components/HomePage';
+import AdminHome from './components/AdminHome';
 import './styleSheet/global.css'
 
 
 function App() {
 
   const [logged,setLogged] = useState(false);
+  const [admin,setAdmin] = useState(false);
   const [username,setUsername] = useState('');
   const { wildcardParam } = useParams();
-  const logStateChange = (boolVal,newName) => {
+  const logStateChange = (boolVal,newName,adminBool) => {
     setLogged(boolVal);
     setUsername(newName);
+    setAdmin(adminBool);
   }
 
   return (
@@ -36,8 +39,9 @@ function App() {
         </Container>
       } />
     </Routes>
-
-    <Navigation logStatus = {logged}/>
+    {
+      admin? null : <Navigation logStatus = {logged}/>
+    }
     
     <Routes>
       <Route path = "/" element={
@@ -50,6 +54,10 @@ function App() {
       <Route path = "/LoggedIn/Personal" />
       <Route path = "/LoggedIn/Contact" />
       <Route path = "/LoggedIn/About" />
+
+      <Route path = "/LoggedIn/Admin" element = {
+        <AdminHome />
+      } />
     </Routes>
 
     <Foot />

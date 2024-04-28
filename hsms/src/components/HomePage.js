@@ -7,12 +7,14 @@ import parkImg from '../Assets/park.jpg';
 import schoolImg from '../Assets/school.jpg';
 import descriptions from '../config/imageDescription';
 
+import HomeSlideShow from './HomeSlideShow';
+
 function HomePage(props){
     
 
     return(
         <div>
-
+            <HomeSlideShow />
 
             <HomeComponent
             heading = 'Welcome to Our Lively Community'
@@ -38,7 +40,7 @@ function HomePage(props){
             />
 
             
-            <HomeComponent
+            {/* <HomeComponent
             heading = 'Discover Tranquility in Our Serene Park'
             imageSrc={parkImg}
             description={descriptions[3]}
@@ -59,7 +61,7 @@ function HomePage(props){
             imageSrc={maintenanceImg}
             description={descriptions[5]}
             imageOnLeft={false}
-            />
+            /> */}
         </div>
     );
 }

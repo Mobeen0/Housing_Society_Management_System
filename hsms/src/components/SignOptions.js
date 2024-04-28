@@ -19,6 +19,7 @@ function SignOptions(props) {
   let userVal = useRef();
   let passVal = useRef();
   let submitVal = useRef();
+  let userType= 'N'
   const history = useNavigate();
   const handleSubmit = () =>{
     const verifyUser = async ()=>{
@@ -26,10 +27,18 @@ function SignOptions(props) {
         const retVal = await axios.get(`http://localhost:5000/Login?userName=${userVal.current.value}&userPass=${passVal.current.value}`);
         if(retVal){
           const {status,data} = retVal
+          const {user} = data;
             if(status === 200){
-              console.log(status)
+              userType = user.user_type
               setValidUser(true)
-              props.verifyLogin(true,userVal.current.value);
+              
+              if(user.user_type === 'A'){
+                props.verifyLogin(true,userVal.current.value,true);
+                history('/LoggedIn/Admin');
+              }
+              else{
+                props.verifyLogin(true,userVal.current.value,false);
+              }
             }
             else{
               window.alert('The username or password is incorrect.');
@@ -50,7 +59,7 @@ function SignOptions(props) {
   }
   
   useEffect(() => {
-    if (validUser) {
+    if (validUser && userType !=='A') {
       history('/LoggedIn/Home');
     }
   }, [validUser]);

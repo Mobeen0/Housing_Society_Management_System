@@ -1,5 +1,5 @@
 const UserModel = require('../models/User');
-
+const NotificationsModel = require('../models/Notifications');
 
 async function getUser(userName, userPass){
     try {
@@ -41,14 +41,29 @@ async function addUser(FName1,LName1,UName1,email1,password1){
         });
 
         await newUser.save();
-        console.log(`saved with ${maxUserId}`)
     }catch(error){
         console.error('Error adding user to database:', error);
+    }
+}
+
+async function addNotification(notiContent, userType, notiHeading){
+    try{
+        const newNotification = new NotificationsModel({
+            notiContent: notiContent,
+            userType: userType,
+            date: new Date(),
+            notiHeading: notiHeading
+        });
+
+        await newNotification.save();
+    }catch(error){
+        console.error('Error adding notification to database:', error);
     }
 }
 
 module.exports = {
     getUser,
     addUser,
-    checkUserName
+    checkUserName,
+    addNotification
 }
