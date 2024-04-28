@@ -22,6 +22,7 @@ async function addUser(FName1,LName1,UName1,email1,password1){
         const maxUserIdUser = await UserModel.findOne({}, { UserId: 1 })
                                     .sort({ UserId: -1 }) 
                                     .limit(1);
+        let maxUserId = 0;
         if(maxUserIdUser.UserId){
             maxUserId = maxUserIdUser.UserId + 1
         }
