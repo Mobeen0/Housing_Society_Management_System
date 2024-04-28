@@ -58,6 +58,13 @@ function OtherOptions(props) {
             window.alert('Passwords do not match. Please try again');
             return;
         }
+        if(fName.current.valueOf.trim().length == 0 ||
+        lName.current.valueOf.trim().length == 0 || nPass.current.valueOf.trim().length == 0
+        ||cPass.current.valueOf.trim().length == 0 || uName.current.valueOf.trim().length == 0
+        || uEmail.current.valueOf.trim().length == 0){
+            window.alert('Please fill in all fields');
+            return;
+        }
         const addUser = async()=>{
             try{
                 const retVal = await axios.post(`http://localhost:5000/SignUp?FName1=${fName.current.value}&LName1=${lName.current.value}&UName1=${uName.current.value}&email1=${uEmail.current.value}&password1=${nPass.current.value}`);
