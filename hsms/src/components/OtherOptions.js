@@ -58,10 +58,10 @@ function OtherOptions(props) {
             window.alert('Passwords do not match. Please try again');
             return;
         }
-        if(fName.current.valueOf.trim().length == 0 ||
-        lName.current.valueOf.trim().length == 0 || nPass.current.valueOf.trim().length == 0
-        ||cPass.current.valueOf.trim().length == 0 || uName.current.valueOf.trim().length == 0
-        || uEmail.current.valueOf.trim().length == 0){
+        if(fName.current.value.trim().length == 0 ||
+        lName.current.value.trim().length == 0 || nPass.current.value.trim().length == 0
+        ||cPass.current.value.trim().length == 0 || uName.current.value.trim().length == 0
+        || uEmail.current.value.trim().length == 0){
             window.alert('Please fill in all fields');
             return;
         }
