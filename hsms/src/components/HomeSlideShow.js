@@ -7,14 +7,14 @@ import schoolImg from '../Assets/school.jpg';
 
 function HomeSlideShow() {
   return (
-    <Carousel interval = {2000} wrap ={true} data-bs-theme="dark">
+    <Carousel interval = {2000} wrap ={true} data-bs-theme="dark" style = {{width:'80%', margin: '0 auto', marginTop: '2%'}}>
       <Carousel.Item>
       <div className="d-flex justify-content-center align-items-center" style={{ height: '560px' }}>
         <Image
           className="d-block w-100"
           src={parkImg}
           alt="First slide"
-          style={{ opacity: 0.9 , filter: 'contrast(130%)'}}
+          style={{ opacity: 0.9 , filter: 'contrast(120%)'}}
         />
         </div>
         <Carousel.Caption>
@@ -28,7 +28,7 @@ function HomeSlideShow() {
           className="d-block w-100"
           src={schoolImg}
           alt="Second slide"
-          style={{ opacity: 0.9, filter: 'contrast(130%)' }}
+          style={{ opacity: 0.9, filter: 'contrast(120%)' }}
         />
        </div>
         <Carousel.Caption>
@@ -42,7 +42,7 @@ function HomeSlideShow() {
           className="d-block w-100"
           src={maintenanceImg}
           alt="Third slide"
-          style={{ opacity: 0.9, filter: 'contrast(150%)' }}
+          style={{ opacity: 0.9, filter: 'contrast(120%)' }}
         />
        </div>
         <Carousel.Caption>

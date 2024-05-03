@@ -7,7 +7,9 @@ import LoggedIn from './components/LoggedIn';
 import Navigation from './components/Navigation'
 import Foot from './components/Foot'
 import HomePage from './components/HomePage';
-import AdminHome from './components/AdminHome';
+import AdminHome from './components/adminComponent/AdminHome';
+import CheckTenant from './components/adminComponent/CheckUser';
+import UserNotification from './components/UserNotification';
 import './styleSheet/global.css'
 
 
@@ -16,15 +18,21 @@ function App() {
   const [logged,setLogged] = useState(false);
   const [admin,setAdmin] = useState(false);
   const [username,setUsername] = useState('');
+  const [userT,setUserT] = useState('N');
+  const [notis,setNotis] = useState([{}]);
+  const [tenants, setTenants] = useState([{}]);
+  const [owners, setOwners] = useState([{}]);
+  // eslint-disable-next-line
   const { wildcardParam } = useParams();
-  const logStateChange = (boolVal,newName,adminBool) => {
+  const logStateChange = (boolVal,newName,adminBool,userType) => {
     setLogged(boolVal);
     setUsername(newName);
     setAdmin(adminBool);
+    setUserT(userType);
   }
 
   return (
-    <>
+    <div className = 'globalBackground'>
     <Routes>
       <Route path = "/" element = {
         <>
@@ -33,14 +41,15 @@ function App() {
         </Container>
         </>
       } />
-      <Route path = "/LoggedIn/:wildcardParam?" element = {
-        <Container fluid>
-          <LoggedIn uname = {username} />
-        </Container>
-      } />
     </Routes>
+
+
     {
-      admin? null : <Navigation logStatus = {logged}/>
+      logged? <Container fluid> <LoggedIn uname = {username} /></Container> : null
+    }
+
+    {
+      admin? null : <Navigation logStatus = {logged} userType= {userT} assignNotis = {setNotis}/>
     }
     
     <Routes>
@@ -53,16 +62,24 @@ function App() {
       <Route path = "/LoggedIn/Listings" />
       <Route path = "/LoggedIn/Personal" />
       <Route path = "/LoggedIn/Contact" />
-      <Route path = "/LoggedIn/About" />
+      <Route path = "/LoggedIn/Notifications" element = {
+        <UserNotification notifications = {notis} />
+      }/>
 
       <Route path = "/LoggedIn/Admin" element = {
-        <AdminHome />
+        <AdminHome assignTenants= {setTenants} assignOwners = {setOwners} />
+      } />
+      <Route path = "/LoggedIn/Admin/Tenants" element = {
+        <CheckTenant tenants = {tenants}/>
+      } />
+      <Route path = "/LoggedIn/Admin/Residents" element = {
+        <CheckTenant tenants = {owners}/>
       } />
     </Routes>
 
     <Foot />
 
-    </>
+    </div>
     
   );
 }

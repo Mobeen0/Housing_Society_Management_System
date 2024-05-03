@@ -4,9 +4,27 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 function Navigation(props) {
+  let history = useNavigate();
+  const notiClick = ()=>{
+    const requestNoti = async () =>{
+      try{
+        const retVal = await axios.get(`http://localhost:5000/LogIn/Notifications?userType=${props.userType}`)
+        console.log('IT GOT HERE')
+        console.log(retVal.data);
+        props.assignNotis(retVal.data);
+        history('/LoggedIn/Notifications');
+      }
+      catch(error){
+
+      }
+    }
+    requestNoti();
+  }
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary" >
       <Container fluid>
@@ -27,7 +45,7 @@ function Navigation(props) {
               <NavDropdown.Item href="https://www.twitter.com/" target = "_blank">Twitter</NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
-            <Nav.Link as = {NavLink} to ="/LoggedIn/About" disabled = {!props.logStatus}>About</Nav.Link>
+            <Nav.Link as = {NavLink} to ="/LoggedIn/Notifications" disabled = {!props.logStatus} onClick = {notiClick}>Notifications</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control

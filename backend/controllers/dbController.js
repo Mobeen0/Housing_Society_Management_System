@@ -61,9 +61,39 @@ async function addNotification(notiContent, userType, notiHeading){
     }
 }
 
+async function getNotificationsDB(userType1,userType2){
+    try{
+        return await NotificationsModel.find({ $or : [{userType:userType1}, {userType: userType2}] });
+    }
+    catch(error){
+        return null;
+    }
+}
+
+async function requestTenants(){
+    try{
+        tenants = await UserModel.find({$or: [{user_type:'B'}, {user_type:'T'}]});
+        return tenants;
+    }catch(error){
+        return null;
+    }
+}
+
+async function requestOwners(){
+    try{
+        tenants = await UserModel.find({$or: [{user_type:'B'}, {user_type:'H'}]});
+        return tenants;
+    }catch(error){
+        return null;
+    }
+}
+
 module.exports = {
     getUser,
     addUser,
     checkUserName,
-    addNotification
+    addNotification,
+    getNotificationsDB,
+    requestTenants,
+    requestOwners
 }

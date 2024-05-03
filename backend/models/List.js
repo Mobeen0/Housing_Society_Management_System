@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const listSchema = new mongoose.Schema({
-    propertyID: { type: String, required: true },
+    propertyID: { type: Number, required: true },
+    propertyName: {type: String, required: true},
     description: { type: String, required: true },
     location: { type: String, required: true },
     size: { type: String, required: true }

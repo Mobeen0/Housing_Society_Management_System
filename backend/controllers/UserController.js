@@ -1,4 +1,4 @@
-const {getUser,checkUserName,addUser} = require('./dbController');
+const {getUser,checkUserName,addUser,requestTenants, requestOwners} = require('./dbController');
 
 async function verifyLogin(req,res){
     try{
@@ -36,9 +36,32 @@ async function signUpUser(req,res){
     }
 }
 
+async function getTenants(req,res){
+    try{
+        const tenants = await(requestTenants());
+        res.status(200).send(tenants);
+    }
+    catch(error){
+
+    }
+}
+
+async function getOwners(req,res){
+    try{
+        const owners = await(requestOwners());
+        res.status(200).send(owners);
+    }
+    catch(error){
+
+    }
+}
+
+
 
 module.exports = {
     verifyLogin,
-    signUpUser
+    signUpUser,
+    getTenants,
+    getOwners
 }
 

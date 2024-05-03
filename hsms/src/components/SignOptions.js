@@ -33,11 +33,11 @@ function SignOptions(props) {
               setValidUser(true)
               
               if(user.user_type === 'A'){
-                props.verifyLogin(true,userVal.current.value,true);
+                props.verifyLogin(true,userVal.current.value,true,user.user_type);
                 history('/LoggedIn/Admin');
               }
               else{
-                props.verifyLogin(true,userVal.current.value,false);
+                props.verifyLogin(true,userVal.current.value,false, user.user_type);
               }
             }
             else{
@@ -68,7 +68,7 @@ function SignOptions(props) {
   return (
     <>
     <Navbar className="bg-body-tertiary justify-content-between">
-      <Navbar className="bg-body-tertiary justify-content-start SignLogo">
+      <Navbar className="bg-body-tertiary justify-content-start SignLogo" >
         <Navbar.Brand > <FaHouseUser /> MHH Housing Society</Navbar.Brand>
         <Navbar.Brand >
           <Container fluid className = "otherOptionCont">
@@ -76,7 +76,7 @@ function SignOptions(props) {
           </Container>
         </Navbar.Brand>
       </Navbar>
-      <Navbar className="bg-body-tertiary justify-content-end subNavbar">
+      <Navbar className="bg-body-tertiary justify-content-end subNavbar" >
         <Form inline >
           <InputGroup>
             <InputGroup.Text id="basic-addon1"><FaUser /></InputGroup.Text>
