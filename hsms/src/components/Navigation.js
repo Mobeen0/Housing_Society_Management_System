@@ -13,8 +13,6 @@ function Navigation(props) {
     const requestNoti = async () =>{
       try{
         const retVal = await axios.get(`http://localhost:5000/LogIn/Notifications?userType=${props.userType}`)
-        console.log('IT GOT HERE')
-        console.log(retVal.data);
         props.assignNotis(retVal.data);
         history('/LoggedIn/Notifications');
       }
@@ -23,6 +21,40 @@ function Navigation(props) {
       }
     }
     requestNoti();
+  }
+
+  const listClick = () =>{
+    const requestList = async ()=>{
+      try{
+        const retVal = await axios.get('http://localhost:5000/Login/Listings');
+        if(retVal.status === 200){
+          props.assignList(retVal.data.data);
+          history('/LoggedIn/Listings');
+        }
+        else{
+          window.alert('No Listings Available / ERROR maybe');
+        }
+      }catch(error){
+        window.alert('error occured');
+      }
+    }
+    requestList();
+  }
+
+  const ownClick = () =>{
+    const requestOwn = async ()=>{
+      try{
+        const retVal = await axios.get(`http://localhost:5000/Login/OwnListings?uName=${props.uName}`);
+        if(retVal.status === 200){
+          props.assignOwnList(retVal.data);
+          history('/LoggedIn/Personal');
+        }
+
+      }catch(error){
+
+      }
+    }
+    requestOwn();
   }
 
   return (
@@ -36,8 +68,8 @@ function Navigation(props) {
             navbarScroll
           >
             <Nav.Link as = {NavLink} to ="/LoggedIn/Home" disabled = {!props.logStatus}>Home</Nav.Link>
-            <Nav.Link as = {NavLink} to ="/LoggedIn/Listings" disabled = {!props.logStatus}>Listings</Nav.Link>
-            <Nav.Link as = {NavLink} to ="/LoggedIn/Personal" disabled = {!props.logStatus}>Personal</Nav.Link>    
+            <Nav.Link as = {NavLink} disabled = {!props.logStatus} onClick = {listClick}>Listings</Nav.Link>
+            <Nav.Link as = {NavLink} disabled = {!props.logStatus} onClick = {ownClick}>Personal</Nav.Link>    
             <NavDropdown title="Contacts" id="navbarScrollingDropdown">
               <NavDropdown.Item href="https://web.whatsapp.com/" target = "_blank">Whatsapp</NavDropdown.Item>
               <NavDropdown.Item href="https://www.facebook.com/" target = "_blank">Facebook</NavDropdown.Item>

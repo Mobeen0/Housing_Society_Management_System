@@ -11,6 +11,8 @@ import AdminHome from './components/adminComponent/AdminHome';
 import CheckTenant from './components/adminComponent/CheckUser';
 import UserNotification from './components/UserNotification';
 import './styleSheet/global.css'
+import ShowProperties from './components/ShowProperties';
+import ShowOwned from './components/ShowOwned';
 
 
 function App() {
@@ -22,6 +24,9 @@ function App() {
   const [notis,setNotis] = useState([{}]);
   const [tenants, setTenants] = useState([{}]);
   const [owners, setOwners] = useState([{}]);
+  const [listings,setListings] = useState([{}]);
+  const [ownedListings,setOwnedListings] = useState([{}]);
+
   // eslint-disable-next-line
   const { wildcardParam } = useParams();
   const logStateChange = (boolVal,newName,adminBool,userType) => {
@@ -43,15 +48,13 @@ function App() {
       } />
     </Routes>
 
-
     {
       logged? <Container fluid> <LoggedIn uname = {username} /></Container> : null
     }
-
     {
-      admin? null : <Navigation logStatus = {logged} userType= {userT} assignNotis = {setNotis}/>
+      admin? null : <Navigation logStatus = {logged} userType= {userT} assignNotis = {setNotis} assignList = {setListings} assignOwnList = {setOwnedListings} uName = {username}/>
     }
-    
+
     <Routes>
       <Route path = "/" element={
         <HomePage />
@@ -59,8 +62,12 @@ function App() {
       <Route path = "/LoggedIn/Home" element={
         <HomePage />
       }/>
-      <Route path = "/LoggedIn/Listings" />
-      <Route path = "/LoggedIn/Personal" />
+      <Route path = "/LoggedIn/Listings" element = {
+        <ShowProperties listArr = {listings} />
+      }/>
+      <Route path = "/LoggedIn/Personal" element = {
+        <ShowOwned listArr= {ownedListings} />
+      } />
       <Route path = "/LoggedIn/Contact" />
       <Route path = "/LoggedIn/Notifications" element = {
         <UserNotification notifications = {notis} />

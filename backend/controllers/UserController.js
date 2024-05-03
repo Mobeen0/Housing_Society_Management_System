@@ -10,7 +10,6 @@ async function verifyLogin(req,res){
         res.status(204).json({ success: false, message: 'User not found' });
     }
     }catch(error){
-        console.error('Error verifying login:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
     return getUser(req,res)
@@ -31,7 +30,6 @@ async function signUpUser(req,res){
         }
 
     }catch(error){
-        console.error('Error verifying login:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 }

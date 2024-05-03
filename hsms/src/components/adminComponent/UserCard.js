@@ -4,7 +4,8 @@ import plcholder from '../../Assets/placeholderUser.png';
 
 function UserCard(props) {
   return (
-    <Card style={{ width: '18rem' }} className = "user-card">
+    <div style = {{justifySelf: 'center'}} >
+    <Card style={{ width: '18rem'}} className = "user-card">
       <Card.Img variant="top" src= {plcholder}/>
       <Card.Body>
         <Card.Title>User Id: <span style = {{fontWeight:'bold'}}>{props.info.UserId} </span></Card.Title>
@@ -20,6 +21,7 @@ function UserCard(props) {
         <ListGroup.Item>Password: <span style = {{fontWeight:'bold'}}>{props.info.password}</span></ListGroup.Item>
       </ListGroup>
     </Card>
+  </div>
   );
 }
 

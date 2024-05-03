@@ -1,10 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import placeHolderHome from '../Assets/sampHome.png';
-import { BiSolidPurchaseTag } from "react-icons/bi";
-import { FaStopwatch } from "react-icons/fa";
+import placeHolderHome from '../Assets/sampHome2.png';
+import { MdElectricBolt } from "react-icons/md";
+import { PiGasCanLight } from "react-icons/pi";
 
-function PropertyInfo(props) {
+function OwnedHome(props) {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Header>
@@ -22,15 +22,15 @@ function PropertyInfo(props) {
         <Card.Footer>
           <div style = {{float:'right'}}>
             <Button variant="success">
-              < BiSolidPurchaseTag />
+              < PiGasCanLight />
               {'  '}
-              Buy
+              Gas Bill
               </Button>
             {'  '}
             <Button variant="warning">
-              < FaStopwatch />
+              < MdElectricBolt />
               {'  '}
-              Rent
+              Electric Bill
               </Button>
             </div>
           </ Card.Footer>
@@ -38,4 +38,4 @@ function PropertyInfo(props) {
   );
 }
 
-export default PropertyInfo;
+export default OwnedHome;

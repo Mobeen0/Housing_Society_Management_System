@@ -140,12 +140,11 @@ body{
   .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px; /* optional */
-    justify-content: center;
-    margin-left: 10vw;
-    margin-right:10vw;
-    margin-top:30px;
+    gap: 30px; /* optional */
+    place-items: center; /* changed from justify-content: center */
+    margin-left: 8vw;
+    margin-right: 8vw;
+    margin-top: 30px;
   }
-  
   
 

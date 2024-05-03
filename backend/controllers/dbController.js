@@ -1,5 +1,8 @@
 const UserModel = require('../models/User');
 const NotificationsModel = require('../models/Notifications');
+const ListModel = require('../models/List');
+const OwnModel = require('../models/Owned');
+const RentModel = require('../models/Rent');
 
 async function getUser(userName, userPass){
     try {
@@ -88,6 +91,95 @@ async function requestOwners(){
     }
 }
 
+async function addPropertyDB(pName,pDesc,pSize,pCity){
+    try{
+        let maxProperty = await ListModel.findOne({}, { propertyID: 1 })
+        .sort({ propertyID: -1 }) 
+        .limit(1);
+
+        let currId = 0;
+        if(maxProperty){
+            currId = maxProperty.propertyID + 1
+        }
+
+        const newProperty = new ListModel({
+            propertyID: currId,
+            propertyName: pName,
+            description: pDesc,
+            location:pCity,
+            size: pSize
+        });
+        await newProperty.save();
+        return true;
+    }
+    catch(error){
+        return false;
+    }
+}
+
+async function getOpenListingsDb(){
+    try{
+        let ownedProperties = await OwnModel.find().exec().then(result => result.map(owned => owned.propertyId));
+        let rentedProperties = await RentModel.find().exec().then(result => result.map(rent => rent.propertyId));
+
+        let ownedPropertiesArray = Array.isArray(ownedProperties) ? ownedProperties : [ownedProperties];
+        let rentedPropertiesArray = Array.isArray(rentedProperties) ? rentedProperties : [rentedProperties];
+        
+        if (ownedProperties.length > 0 && rentedProperties.length > 0) {
+            let openProperties = await ListModel.find({
+                propertyID: {
+                  $nin: ownedPropertiesArray,
+                  $nin: rentedPropertiesArray
+                }
+              });
+            return openProperties;
+        } else {
+            if(ownedProperties.length>0){
+                let openProperties = await ListModel.find({
+                    propertyID: {
+                      $nin: ownedPropertiesArray
+                    }
+                  });
+                return openProperties;
+            }
+            if(rentedProperties.length > 0){
+                let openProperties = await ListModel.find({
+                    propertyID: {
+                      $nin: rentedPropertiesArray
+                    }
+                  });
+                return openProperties;
+            }
+            if(ownedProperties.length === 0 && rentedProperties.length === 0){
+                let openProperties = await ListModel.find();
+                return openProperties;
+            }
+        }
+    }catch(error){
+        console.log('error in db:', error.message);
+
+    }
+}
+
+
+async function getOwnedListingsDb(uName){
+    try{
+        let ownedProperties = await OwnModel.find({UName: uName.toString()}).exec().then(owned => owned.map(owned => owned.propertyId));
+        let ownedPropertiesArray = Array.isArray(ownedProperties) ? ownedProperties : [ownedProperties];
+        if(ownedProperties.length === 0){
+            return null;
+        }
+        else{
+            console.log(ownedPropertiesArray);
+            return await ListModel.find({propertyID: ownedPropertiesArray});
+        }
+
+    }catch(error){
+        console.log('error occured ', error.message);
+    }
+
+}
+
 module.exports = {
     getUser,
     addUser,
@@ -95,5 +187,8 @@ module.exports = {
     addNotification,
     getNotificationsDB,
     requestTenants,
-    requestOwners
+    requestOwners,
+    addPropertyDB,
+    getOpenListingsDb,
+    getOwnedListingsDb
 }

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
+import { IoIosNotifications } from "react-icons/io";
 
 function NotificationCanvas(props) {
 
@@ -68,7 +69,7 @@ function NotificationCanvas(props) {
                     </Dropdown.Menu>
                 </Dropdown>
                 <div style = {{marginTop:'10vh', float:'right'}}>
-                    <Button variant="success" onClick = {handleClick}>Send</Button>
+                    <Button variant="success" onClick = {handleClick}> < IoIosNotifications/>{' '}Send</Button>
                 </div>
             </Offcanvas.Body>
         </Offcanvas>
