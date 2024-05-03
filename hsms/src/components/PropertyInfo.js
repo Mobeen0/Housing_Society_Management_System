@@ -3,8 +3,56 @@ import Card from 'react-bootstrap/Card';
 import placeHolderHome from '../Assets/sampHome.png';
 import { BiSolidPurchaseTag } from "react-icons/bi";
 import { FaStopwatch } from "react-icons/fa";
+import {useState} from 'react';
+import axios from 'axios';
+
 
 function PropertyInfo(props) {
+  let [bClicked,setBClicked] = useState(false);
+  let [rClicked,setRClicked] = useState(false);
+
+  const handleBuy = ()=>{
+    const buyRequest = async ()=>{
+      try{
+        const retVal = await axios.post(`http://localhost:5000/Login/Buy?uName=${props.uName}&propertyId=${props.property.propertyID}`);
+        if(retVal.status===200){
+          window.alert('Property Bought');
+        }
+        else{
+          window.alert('other status sent');
+        }
+      }catch(error){
+        window.alert('Error Occured');
+      }
+    }
+
+    buyRequest();
+
+    setBClicked(true);
+    setRClicked(true);
+  }
+
+  const handleRent = ()=>{
+    const RentRequest = async ()=>{
+      try{
+        const retVal = await axios.post(`http://localhost:5000/Login/Rent?uName=${props.uName}&propertyId=${props.property.propertyID}`);
+        if(retVal.status===200){
+          window.alert('Property Rented');
+        }
+        else{
+          window.alert('other status sent');
+        }
+      }catch(error){
+        window.alert('Error Occured');
+      }
+    }
+
+    RentRequest();
+
+    setBClicked(true);
+    setRClicked(true);
+  }
+
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Header>
@@ -21,13 +69,13 @@ function PropertyInfo(props) {
         </Card.Body>
         <Card.Footer>
           <div style = {{float:'right'}}>
-            <Button variant="success">
+            <Button variant="success" disabled = {bClicked} onClick = {handleBuy}>
               < BiSolidPurchaseTag />
               {'  '}
               Buy
               </Button>
             {'  '}
-            <Button variant="warning">
+            <Button variant="warning" disabled = {rClicked} onClick = {handleRent}>
               < FaStopwatch />
               {'  '}
               Rent

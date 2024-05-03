@@ -5,6 +5,7 @@ import { MdElectricBolt } from "react-icons/md";
 import { PiGasCanLight } from "react-icons/pi";
 
 function OwnedHome(props) {
+  console.log(props.property.utilityStatus);
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Header>
@@ -19,6 +20,8 @@ function OwnedHome(props) {
             <span style = {{fontWeight:'bold'}}>{props.property.location}</span>
           </Card.Text>
         </Card.Body>
+
+        
         <Card.Footer>
           <div style = {{float:'right'}}>
             <Button variant="success">
@@ -26,14 +29,14 @@ function OwnedHome(props) {
               {'  '}
               Gas Bill
               </Button>
-            {'  '}
+              {'  '}
             <Button variant="warning">
               < MdElectricBolt />
               {'  '}
               Electric Bill
-              </Button>
-            </div>
-          </ Card.Footer>
+            </Button>
+          </div>
+        </ Card.Footer>
     </Card>
   );
 }

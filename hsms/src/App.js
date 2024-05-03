@@ -26,6 +26,7 @@ function App() {
   const [owners, setOwners] = useState([{}]);
   const [listings,setListings] = useState([{}]);
   const [ownedListings,setOwnedListings] = useState([{}]);
+  const [filterString,setFilterString] = useState('');
 
   // eslint-disable-next-line
   const { wildcardParam } = useParams();
@@ -52,7 +53,11 @@ function App() {
       logged? <Container fluid> <LoggedIn uname = {username} /></Container> : null
     }
     {
-      admin? null : <Navigation logStatus = {logged} userType= {userT} assignNotis = {setNotis} assignList = {setListings} assignOwnList = {setOwnedListings} uName = {username}/>
+      admin? null : <Navigation 
+      logStatus = {logged} userType= {userT}
+       assignNotis = {setNotis} assignList = {setListings} 
+       assignOwnList = {setOwnedListings} uName = {username}
+       filterContent = {setFilterString} />
     }
 
     <Routes>
@@ -63,10 +68,10 @@ function App() {
         <HomePage />
       }/>
       <Route path = "/LoggedIn/Listings" element = {
-        <ShowProperties listArr = {listings} />
+        <ShowProperties listArr = {listings} filterContent = {filterString} uName = {username}/>
       }/>
       <Route path = "/LoggedIn/Personal" element = {
-        <ShowOwned listArr= {ownedListings} />
+        <ShowOwned listArr= {ownedListings} filterContent = {filterString} uName ={username}/>
       } />
       <Route path = "/LoggedIn/Contact" />
       <Route path = "/LoggedIn/Notifications" element = {

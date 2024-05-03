@@ -165,13 +165,14 @@ async function getOpenListingsDb(){
 async function getOwnedListingsDb(uName){
     try{
         let ownedProperties = await OwnModel.find({UName: uName.toString()}).exec().then(owned => owned.map(owned => owned.propertyId));
-        let ownedPropertiesArray = Array.isArray(ownedProperties) ? ownedProperties : [ownedProperties];
-        if(ownedProperties.length === 0){
+        let rentedProperties = await RentModel.find({UName: uName.toString()}).exec().then(rented => rented.map(rented => rented.propertyId));
+        let allProperties = [...ownedProperties, ...rentedProperties];
+        let allPropertiesArray = Array.isArray(allProperties) ? allProperties : [allProperties];
+        if(allProperties.length === 0){
             return null;
         }
         else{
-            console.log(ownedPropertiesArray);
-            return await ListModel.find({propertyID: ownedPropertiesArray});
+            return await ListModel.find({propertyID: allPropertiesArray});
         }
 
     }catch(error){
@@ -179,6 +180,39 @@ async function getOwnedListingsDb(uName){
     }
 
 }
+
+
+
+async function addOwned(uName,propertyID){
+    try{   
+        let addOwned1 = new OwnModel({
+            UName: uName,
+            propertyId: propertyID,
+            utilityStatus: 'Active'
+        });
+        await addOwned1.save();
+        return true;
+
+    }catch(error){
+        console.log('error occured', error.message);
+        return false;
+    }
+}
+
+async function addRent(uName,propertyID){
+    try{   
+        let addRent2 = new RentModel({
+            UName: uName,
+            propertyId: propertyID
+        });
+        await addRent2.save();
+        return true;
+
+    }catch(error){
+        return false;
+    }
+}
+
 
 module.exports = {
     getUser,
@@ -190,5 +224,7 @@ module.exports = {
     requestOwners,
     addPropertyDB,
     getOpenListingsDb,
-    getOwnedListingsDb
+    getOwnedListingsDb,
+    addOwned,
+    addRent
 }

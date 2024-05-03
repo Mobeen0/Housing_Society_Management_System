@@ -1,3 +1,4 @@
+import {useRef} from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +9,7 @@ import {NavLink, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 function Navigation(props) {
+  const searchContent = useRef(null);
   let history = useNavigate();
   const notiClick = ()=>{
     const requestNoti = async () =>{
@@ -57,6 +59,11 @@ function Navigation(props) {
     requestOwn();
   }
 
+  const handleSearchClick = ()=>{
+    props.filterContent(searchContent.current.value);
+    console.log(searchContent.current.value);
+  }
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary" >
       <Container fluid>
@@ -85,8 +92,9 @@ function Navigation(props) {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              ref = {searchContent}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success" onClick = {handleSearchClick}>Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
