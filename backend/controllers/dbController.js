@@ -40,7 +40,7 @@ async function addUser(FName1,LName1,UName1,email1,password1){
             UName: UName1,
             email: email1,
             password: password1,
-            user_type: "N"
+            user_type: "B"
         });
 
         await newUser.save();
@@ -124,12 +124,13 @@ async function getOpenListingsDb(){
 
         let ownedPropertiesArray = Array.isArray(ownedProperties) ? ownedProperties : [ownedProperties];
         let rentedPropertiesArray = Array.isArray(rentedProperties) ? rentedProperties : [rentedProperties];
+
+        let allProperties = [...ownedPropertiesArray, ...rentedPropertiesArray];
         
         if (ownedProperties.length > 0 && rentedProperties.length > 0) {
             let openProperties = await ListModel.find({
                 propertyID: {
-                  $nin: ownedPropertiesArray,
-                  $nin: rentedPropertiesArray
+                  $nin: allProperties
                 }
               });
             return openProperties;
